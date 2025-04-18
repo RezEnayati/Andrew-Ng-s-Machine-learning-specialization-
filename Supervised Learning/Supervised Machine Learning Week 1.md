@@ -48,7 +48,8 @@ We represent $f$ as $f_{w,b}(x) = wx+b$ which means that this is a *Linear Regre
 A function that measures how good our model is doing at predicting the output, we can use the cost function to improve the accuracy of our model. $$f_{w,b}(x) = wx+b$$
 The function above is our model, the $w$ and $b$ are called the parameters of the model. We adjust these variables to improve the model. These variables are also referred to as coefficients and weights sometimes. In linear regression, we have to pick values of $w$ and $b$ so that the line fits our data well. Or in other words our line passes through or is close to our training examples. But how do we pick these parameters so that the value of $\hat{y}$ is true for many or all of our training examples in $(x^i,y^i)$? This is where the cost function comes in handy. 
 
-For many linear regression models, we use the **Squared error cost function:**$$
+For many linear regression models, we use the **Squared error cost function:**
+$$
 J_{(w,b)} = \frac{1}{2m} \sum_{i=1}^m (\hat y^{(i)} - y^{(i)})^2
 $$
 The difference of $\hat{y}$ and y is called the error. $m$ is the number of training examples. We take the average of the cost and that's why we divide by $m$ and we add the 2 in to make our calculations neater for the future. Since $\hat{y}$ is the result of our model we can re-write the function as:
@@ -99,26 +100,29 @@ j_{(w,b)} = \frac{1}{2m} \sum_{i=1}^m (f_{w,b}(x^{(i)}) - y^{(i)})^2
 $$
 **Gradient Descent:** 
 Repeat until convergence {
+
 $$
 temp\_w = w \ - \ \alpha \frac{d}{dw}J(w,b)
 $$
-
 $$
 temp\_b = b \ - \ \alpha \frac{d}{db}J(w,b)
 $$
-$$ w = temp\_w $$
-$$ b = temp\_b $$
+$$
+w = temp\_w 
+$$
+$$
+b = temp\_b 
+$$
 }
 Now If We Take The Derivatives: 
 $$
-w = w - \alpha \ \frac{1}{m} \ 
- \sum_{i=1}^m (f_{w,b}(x^{(i)}) - y^{(i)})x^{(i)}
+w = w - \alpha \ \frac{1}{m} \ \sum_{i=1}^m (f_{w,b}(x^{(i)}) - y^{(i)})x^{(i)}
 $$
 $$
 b = b - \alpha \frac{1}{m} \ \sum_{i=1}^m (f_{w,b}(x^{(i)}) - y^{(i)})
 $$
 
-we carry out these functions until convergence (simultaneously) 
+We carry out these functions until convergence (simultaneously) 
 
 **Issue:**
 The issue is that Gradient Descent can reach a local minimum instead of a global minimum. Except that in this case since our **Square Cost Function Difference** creates a bowl shape, it only has one minimum. The technical term for this kind of bowl shape is a *convex* function. 
