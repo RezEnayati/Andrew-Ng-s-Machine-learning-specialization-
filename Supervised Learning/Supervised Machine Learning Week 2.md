@@ -199,4 +199,4 @@ Example model:
 
 $$f_{\vec{w},b}(x) = w_1x + w_2x^2 + w_3x^3 + b$$
 
-In this case feature scaling becomes a lot more important because the ranges will vary a lot. This is covered Next Week!
+In this case feature scaling becomes a lot more important because the ranges will vary a lot.
