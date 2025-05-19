@@ -1,5 +1,9 @@
 Let's say you have implemented regularized linear regression for the housing prices problem your cost function would look something like this:
-$$J({\vec{w},b}) = \frac{1}{2m} \sum_{i=1}^m (f_{\vec{w},b}(\vec{x}^{(i)})-y^{(i)})^2 + \frac{\lambda}{2m}\sum_{j=1}^n w_j^2$$
+
+$$
+J({\vec{w},b}) = \frac{1}{2m} \sum_{i=1}^m (f_{\vec{w},b}(\vec{x}^{(i)})-y^{(i)})^2 + \frac{\lambda}{2m}\sum_{j=1}^n w_j^2
+$$
+
 But it makes unacceptably large errors in predictions. What would we do next? In this chapter we go over techniques to debug machine learning algorithms. Below is a list of steps that you can maybe try to use to improve the model: 
 * Get more training examples 
 * Try smaller sets of features 
@@ -165,4 +169,60 @@ Software engineering maybe needed for:
 * Model Update 
 MLOps: Machine Learning operations, combining machine learning engineering and software engineering. 
 
+---
+**Fairness, bias and ethics**
+* Deepfakes
+* Spreading toxic/incendiary speech through optimizing for engagement.
+* Generating fake content for commercial or political purposes.
+* Using ML to build harmful products, commit fraud etc.
+* Spam vs anti-spam: fraud vs fraud.
 
+**Guidelines:**
+* Get a diverse team to brainstorm things that might go wrong, with emphasis on possible harm to vulnerable groups.
+* Carry out literature search on standards/guidelines for industry.
+* Audit systems against possible harm prior to deployment.
+* Check bias against possible hard prior to deployment.
+* Develop mitigation plan (if applicable), and after deployment, monitor possible harms. 
+
+---
+**Skewed Data Sets**
+If the positive to negative ratio is ver skewed, meaning that it is far from 50-50 it turns out that the usual metrics for accuracy do not work that well. Let's say we want to classify a rare disease and do this with a binary classification algorithm. After training we find that we've got 1% error on the test set and 99% correct diagnoses, this is actually not very accurate if only 0.5% of the population have this rare disease. So we usually have a different error metric rather than just classification error. A common pair of error metrics we use in this case is called the precision/recall. In particular it's useful to construct what's called a confusion matrix which is a table that helps us calculate the recall and the precision. 
+
+The rows columns depict the actual class and the rows depict the predicted class
+
+|     | 1                     | 0                    |
+| --- | --------------------- | -------------------- |
+| 1   | True Positive **15**  | False positive 5     |
+| 0   | False negative **10** | True Negative **70** |
+**Precision:** Of all patients where we predicted y=1 what fraction actually have the rare disease?
+
+$\frac{True \ Positive}{Predicted \ positive} = \frac{True \ Positive}{True\ Positive\ +\ False \ Positive} = \frac{15}{15+5} = \frac{15}{20} = 0.75$
+
+**Recall:** Of all patients that actually have the rare disease what fraction did we correctly detect has having it?
+
+$\frac{True \ Positive}{Actual \ positive} = \frac{True \ Positive}{True\ Positive\ +\ False \ Negative} = \frac{15}{15+10} = \frac{15}{25} = 0.6$
+
+This learning algorithm would have 0.75 precision and 0.6 recall. 
+
+When we have a rare class, looking at precision and recall can give us a better understanding of the accuracy of the learning algorithm. 
+
+**Trading off Precision and Recall:**
+**High Precision:** If a diagnosis of patients have that rare disease, probably the patient does have it and it's and accurate diagnosis.
+**High Recall:** If there is a patient with that rare disease, probably the algorithm will correctly identify that they do have that disease. 
+But in practice there is often a tradeoff between recall and precision. 
+Say we are using logistic regression to predict the rare disease and want to predict the rare disease only if we are very confidant in our prediction, so instead of the threshold we regularly use for logistic regression which is (0.5) we use a higher threshold like 0.7, this means that only predict the disease if we are very confidant in the patient having a disease, this will cause the **Precision** to go up, but **Recall** will go down. 
+On the flip side if we want to avoid missing too many cases of rare disease we can lower the threshold, this will cause **Precision** to go down and the **Recall** to go up. 
+Mostly in medical cases recall is often prioritized. 
+
+**Combined Metric: F1 Score**
+
+$$F_1 = 2 \times \frac{Precision \times Recall}{Precision + Recall}$$
+Used to balance both, but pays more attention to which is lower. (Also called the Harmonic Mean which gives more value to the smaller number)
+
+|             | Precision (P) | Recall (R) | Average | $F_1$ Score |
+| ----------- | ------------- | ---------- | ------- | ----------- |
+| Algorithm 1 | 0.5           | 0.4        | 0.45    | 0.444       |
+| Algorithm 2 | 0.7           | 0.1        | 0.4     | 0.175       |
+| Algorithm 3 | 0.02          | 1.0        | 0.501   | 0.0392      |
+
+Based on this table, we can see that just taking the average is not very beneficial, but taking the $F_1$ score gives us more insight as to how the algorithm is doing. 
