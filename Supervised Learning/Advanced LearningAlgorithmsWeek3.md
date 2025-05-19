@@ -1,8 +1,5 @@
 Let's say you have implemented regularized linear regression for the housing prices problem your cost function would look something like this:
-$$
-
-J({\vec{w},b}) = \frac{1}{2m} \sum_{i=1}^m (f_{\vec{w},b}(\vec{x}^{(i)})-y^{(i)})^2 + \frac{\lambda}{2m}\sum_{j=1}^n w_j^2
-$$
+$$J({\vec{w},b}) = \frac{1}{2m} \sum_{i=1}^m (f_{\vec{w},b}(\vec{x}^{(i)})-y^{(i)})^2 + \frac{\lambda}{2m}\sum_{j=1}^n w_j^2$$
 But it makes unacceptably large errors in predictions. What would we do next? In this chapter we go over techniques to debug machine learning algorithms. Below is a list of steps that you can maybe try to use to improve the model: 
 * Get more training examples 
 * Try smaller sets of features 
