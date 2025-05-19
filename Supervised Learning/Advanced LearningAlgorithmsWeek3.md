@@ -1,3 +1,4 @@
+# ML Diagnostics 
 Let's say you have implemented regularized linear regression for the housing prices problem your cost function would look something like this:
 
 $$
