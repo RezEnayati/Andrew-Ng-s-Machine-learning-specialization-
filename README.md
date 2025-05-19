@@ -8,5 +8,7 @@
 
   * Week 1: Neural Networks and forward prop
   * Week 2: Deeper look into Neural networks and bavck propagation
+  * Week 3: Diagnostics for ML algorithms
+  * Week 4: Trees 
 
 **Reinforcment Learning**
