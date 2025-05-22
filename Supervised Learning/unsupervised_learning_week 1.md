@@ -88,7 +88,7 @@ Evaluate K-means based on how well it performs on that later purpose.
 
 **Anomaly Detection:**
 These algorithms look at unlabeled datasets of normal events and learns to raise a red flag if there is an unusual or anomalous event.
-The most common way to carry out anomaly detection is a technique called density estimation. What it means is that when you are given a training set of these algorithms of these m examples the first thing is to build a model of the probability of x. Meaning you look at the points in the data set and give then a probability of how likely they are to be seen in the dataset. Then we would compute the probability of $x_{test}$ and if the probability of it is small we would flag it as an anomaly. 
+The most common way to carry out anomaly detection is a technique called **density estimation.** What it means is that when you are given a training set of these algorithms of these m examples the first thing is to build a model of the probability of x. Meaning you look at the points in the data set and give then a probability of how likely they are to be seen in the dataset. Then we would compute the probability of $x_{test}$ and if the probability of it is small we would flag it as an anomaly. 
 **Use cases:**
 * Fraud detection in social media accounts or financial institutes.
 * Manufacturing to see if product is well enough or not 
@@ -122,4 +122,49 @@ Algorithm:
 4. Anomaly if $p(x) < \epsilon$
 
 **How to choose epsilon and evaluating the model:**
-It's useful to have some labeled data where we can do cross validation and test example to test the algorithm with it. 
+In ML models if there is a way to evaluate the model as you're building it, you can modify the system and improve quicker. With learning algorithms, making decisions about features or in this case $\epsilon$ is easier if we have a way of evaluating our learning algorithm. This is sometimes called **Real Number Evaluation**. Even though in unsupervised learning we say that we only have unlabeled data, we can change our assumption a little and say we have some labeled data, of anomalous and non-anomalous examples. For anomalous examples we can consider a $y = 1$ label and for normal examples we can have $y=0$. But for our training examples we can assume our data is normal. To evaluate the algorithm it's very useful to have a small number of anomalous examples and split it into cross-validation and test set, and each of these has to have a few anomalous examples. 
+Example:
+
+10000 normal engines 
+20     flawed engines 
+It's normal to have anywhere from 2 - 50 anomalous examples. 
+
+Training set: 6000 good engines 
+CV: 2000 (y = 0) and 10 anomalous (y = 1)
+Test: 2000 good engines (y = 1) and 10 anomalous (y = 1)
+
+1. Train the model on the training examples 
+2. Use cross validation set and tune $\epsilon$ and tune $x_j$
+3. Test on the test set 
+
+Alternative: No test set, just have a training set and a cv set. Tune epsilon and tune the model on the cv. This works when you don't have a lot of anomalous data. But this can have an issue of overfitting. 
+
+**Algorithm:**
+Fit model $p(x)$ on training set $x^{(1)}, x^{(2)},...,x^{(m)}$
+On cross validation / test example $x$, predict y if $p(x)$ is greater than $\epsilon$ or if it's less than $\epsilon$. 
+Possible evolution metrics:
+* True positive, false positive, false negative, true negative
+* Precision / Recall 
+* $F_1$ score. 
+
+**Anomaly Detection & Supervised Learning**
+When to use anomaly detections or supervised learning: 
+
+**Anomaly**:
+* Very small number of positive examples. 
+* Many different "types" of anomalies. Hard for any algorithm to learn from positive examples what the anomalies look like; future anomalies may look nothing like any of anomalous examples we've seen so far. (Fraud detection in banks)
+
+**Unsupervised Learning:**
+* Large number of positive and negative examples. 
+* Enough positive example for the algorithm to get a sense of what positive examples are like, future positive example likely to be similar to ones in training set. (Spam emails)
+
+**Summary:** Anomaly detection tries to find brand new positive examples, where as supervised looks at a future example and checks if it's similar to an older example we've seen. But the choice of futures is very important. 
+
+**The choice of features in anomaly detection is very important.**
+In **supervised learning** if you have a couple of extra features or a few features that are not relevant to the problem it often turns out to be okay because of the labels. 
+In **anomaly detection** carefully choosing and tuning the features is very important. 
+They key note is to makes sure your data follows a gaussian distribution, and if they don't there are techniques to make the gaussian. 
+If after plotting a feature $x$ you don't see a gaussian distribution, you have to transform the model to a gaussian distribution. For example you can take the log of the data to maybe transform it into a gaussian distribution or the square root of the features. But remember to make sure to apply all the transformation to the test set as well. 
+
+**Error analysis for anomaly detection:**
+Sometimes if you have a feature that is not getting flagged as an anomaly, adding features is usually a common way to allow the algorithm to spot the example to be anomalous. It's also common to combine features into each other. 
