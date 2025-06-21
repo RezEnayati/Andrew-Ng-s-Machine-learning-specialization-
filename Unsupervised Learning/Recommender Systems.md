@@ -453,3 +453,64 @@ model = Model([input_user, input_item], output)
 # Specify the cost function 
 cost_fn = tf.keras.loses.MeanSquaredError() 
 ```
+
+# 🧠 Principal Component Analysis (PCA)
+
+Principal Component Analysis (PCA) is a **dimensionality reduction** technique used to simplify complex datasets by transforming them into a lower-dimensional space — while preserving as much **variance** as possible.
+
+---
+
+## 🔍 Why Use PCA?
+
+- Reduce dimensionality of large datasets  
+- Remove noise and redundancy  
+- Visualize high-dimensional data  
+- Improve performance of ML algorithms  
+
+---
+
+## 📊 Core Idea
+
+PCA finds **new axes (principal components)** that:
+
+1. Are **orthogonal** (i.e., uncorrelated)  
+2. Capture the **maximum variance** in the data  
+
+The **first principal component** captures the most variance, the second captures the next most (orthogonal to the first), and so on.
+
+---
+
+# 🧠 Principal Component Analysis (PCA)
+
+Principal Component Analysis (PCA) is a **dimensionality reduction** technique used to simplify complex datasets by transforming them into a lower-dimensional space — while preserving as much **variance** as possible.
+
+---
+
+## 🔍 Why Use PCA?
+
+- Reduce dimensionality of large datasets  
+- Remove noise and redundancy  
+- Visualize high-dimensional data  
+- Improve performance of ML algorithms  
+
+---
+
+## 📊 Core Idea
+
+PCA finds **new axes (principal components)** that:
+
+1. Are **orthogonal** (i.e., uncorrelated)  
+2. Capture the **maximum variance** in the data  
+
+The **first principal component** captures the most variance, the second captures the next most (orthogonal to the first), and so on.
+
+---
+
+## 🧮 PCA Step-by-Step
+
+1. **Standardize the data**  
+   Zero mean and unit variance for each feature.
+
+   ```python
+   from sklearn.preprocessing import StandardScaler
+   X_std = StandardScaler().fit_transform(X)
